@@ -1016,7 +1016,7 @@
     function onClickRestart() {
       // Initialze All Questions Array
       allQuestions = [...Array(civics_questions.length).keys()]
-      //   .sort(
+      // .sort(
       //   () => 0.5 - Math.random()
       // );
       currentQuestionId = 0;
@@ -1033,6 +1033,7 @@
     }
 
     function onClickPreviousQuestion() {
+
       if (currentQuestionId == 0) {
         currentQuestionId = allQuestions.length - 1;
       } else {
@@ -1043,6 +1044,7 @@
     }
 
     function onClickNextQuestions() {
+
       if (currentQuestionId == allQuestions.length - 1) {
         currentQuestionId = 0;
       } else {

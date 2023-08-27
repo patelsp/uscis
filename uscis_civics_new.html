@@ -1016,9 +1016,10 @@
     // -- OnClick --------------------------------------------------------------------
     function onClickRestart() {
       // Initialze All Questions Array
-      allQuestions = [...Array(civics_questions.length).keys()].sort(
-        () => 0.5 - Math.random()
-      );
+      allQuestions = [...Array(civics_questions.length).keys()]
+      //   .sort(
+      //   () => 0.5 - Math.random()
+      // );
       currentQuestionId = 0;
       // theQuestionArrayDiv.innerHTML = "QA: " + allQuestions;
       // theQuestionOrderyDiv.innerHTML =

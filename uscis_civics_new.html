@@ -49,7 +49,8 @@
         /* font-size: 70px; */
       }
 
-      button {
+      button,
+      select {
         height: 45px;
         width: 150px;
         font-size: 16px;
@@ -100,6 +101,16 @@
           >
             Next
           </button>
+
+          <br />
+          <label for="question">Jump to question:</label>
+          <select
+            name="question"
+            id="questionDropdown"
+            onchange="onChangeQuestionDropdown()"
+          >
+            <option>-- Select --</option>
+          </select>
         </div>
         <!-- <div id="theQuestionArray">QO:</div> -->
         <!-- question order for debugging -->
@@ -127,21 +138,6 @@
 
   <!-- ------------------------------------------------------------------------------------------------------ -->
   <script>
-    restartBtn = document.getElementById("restart");
-    randomizeQuestionsBtn = document.getElementById("randomizeQuestions");
-    previousQuestionBtn = document.getElementById("previousQuestion");
-    nextQuestionBtn = document.getElementById("nextQuestion");
-    nextQuestionBtn = document.getElementById("nextQuestion");
-    showAnswerBtn = document.getElementById("nextQuestion");
-
-    theQuestionArrayDiv = document.getElementById("theQuestionArray"); // Question Array
-    theQuestionOrderyDiv = document.getElementById("theQuestionOrder"); // Question Order
-    theQuestionDiv = document.getElementById("theQuestion"); // Question
-    theAnswerDiv = document.getElementById("theAnswer"); // Answer
-
-    currentQuestionId = 0;
-    allQuestions = [];
-
     // All questions & answers
     let civics_questions = [
       {
@@ -1012,10 +1008,26 @@
       },
     ];
 
+    questionDropdown = document.getElementById("questionDropdown");
+    restartBtn = document.getElementById("restart");
+    randomizeQuestionsBtn = document.getElementById("randomizeQuestions");
+    previousQuestionBtn = document.getElementById("previousQuestion");
+    nextQuestionBtn = document.getElementById("nextQuestion");
+    nextQuestionBtn = document.getElementById("nextQuestion");
+    showAnswerBtn = document.getElementById("nextQuestion");
+
+    theQuestionArrayDiv = document.getElementById("theQuestionArray"); // Question Array
+    theQuestionOrderyDiv = document.getElementById("theQuestionOrder"); // Question Order
+    theQuestionDiv = document.getElementById("theQuestion"); // Question
+    theAnswerDiv = document.getElementById("theAnswer"); // Answer
+
+    currentQuestionId = 0;
+    allQuestions = [];
+
     // -- OnClick --------------------------------------------------------------------
     function onClickRestart() {
       // Initialze All Questions Array
-      allQuestions = [...Array(civics_questions.length).keys()]
+      allQuestions = [...Array(civics_questions.length).keys()];
       // .sort(
       //   () => 0.5 - Math.random()
       // );
@@ -1033,7 +1045,6 @@
     }
 
     function onClickPreviousQuestion() {
-
       if (currentQuestionId == 0) {
         currentQuestionId = allQuestions.length - 1;
       } else {
@@ -1044,7 +1055,6 @@
     }
 
     function onClickNextQuestions() {
-
       if (currentQuestionId == allQuestions.length - 1) {
         currentQuestionId = 0;
       } else {
@@ -1053,9 +1063,18 @@
 
       updateData(currentQuestionId);
     }
-https://github.com/patelsp/uscis/blob/main/uscis_civics_new.html
+
     function onClickShowAnswer() {
       theAnswer.style.visibility = "visible";
+    }
+
+    function onChangeQuestionDropdown() {
+      console.log(questionDropdown.value);
+
+      if (questionDropdown.value == "-- Select --") return;
+
+      currentQuestionId = questionDropdown.value - 1;
+      updateData(questionDropdown.value - 1);
     }
 
     // -- Functions --------------------------------------------------------------------
@@ -1090,6 +1109,16 @@ https://github.com/patelsp/uscis/blob/main/uscis_civics_new.html
         console.log("YAY");
       } else {
         console.log("BOOO");
+      }
+
+      var data = [...Array(civics_questions.length).keys()];
+      // Populate down
+      for (var i = 0; i < data.length; i++) {
+        var opt = data[i] + 1;
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        questionDropdown.appendChild(el);
       }
 
       onClickRestart();

@@ -103,14 +103,16 @@
           </button>
 
           <br />
-          <label for="question">Jump to question:</label>
-          <select
-            name="question"
-            id="questionDropdown"
-            onchange="onChangeQuestionDropdown()"
-          >
-            <option>-- Select --</option>
-          </select>
+          <div id="theQuestionDropdownDiv">
+            <label for="question">Jump to question:</label>
+            <select
+              name="question"
+              id="questionDropdown"
+              onchange="onChangeQuestionDropdown()"
+            >
+              <option>-- Select --</option>
+            </select>
+          </div>
         </div>
         <!-- <div id="theQuestionArray">QO:</div> -->
         <!-- question order for debugging -->
@@ -1016,6 +1018,7 @@
     nextQuestionBtn = document.getElementById("nextQuestion");
     showAnswerBtn = document.getElementById("nextQuestion");
 
+    theQuestionDropdownDiv = document.getElementById("theQuestionDropdownDiv");
     theQuestionArrayDiv = document.getElementById("theQuestionArray"); // Question Array
     theQuestionOrderyDiv = document.getElementById("theQuestionOrder"); // Question Order
     theQuestionDiv = document.getElementById("theQuestion"); // Question
@@ -1035,12 +1038,18 @@
       // theQuestionArrayDiv.innerHTML = "QA: " + allQuestions;
       // theQuestionOrderyDiv.innerHTML =
       //   "OO: " + [...Array(civics_questions.length).keys()];
+
+      theQuestionDropdownDiv.style.visibility = "visible";
+
       updateData(0);
     }
 
     function onClickRandomizeQuestions() {
       allQuestions.sort(() => 0.5 - Math.random());
       // theQuestionArrayDiv.innerHTML = "QA: " + allQuestions;
+      
+      theQuestionDropdownDiv.style.visibility = "hidden";
+
       updateData(0);
     }
 
